@@ -5,6 +5,8 @@ import ScoreCard from '../UI/ScoreCard';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import { api } from '../../utils/api';
 import { ScanResult } from '../../types';
+import * as tmImage from "@teachablemachine/image";
+
 const getScoreForMaterial = (material: string): string => {
   const scores: Record<string, string> = {
     Plastic: "D",
@@ -88,10 +90,13 @@ const ScanPage: React.FC = () => {
 
     // ✅ Load your Teachable Machine model once
     // @ts-ignore
-    const model = await window.tmImage.load(
-      modelURL + "model.json",
-      modelURL + "metadata.json"  
-    );
+    // ✅ CORRECT WAY:
+const model = await tmImage.load(
+  modelURL + "model.json",
+  modelURL + "metadata.json"
+);
+  
+  
 
     // ✅ Load image
     const img = new Image();
@@ -100,9 +105,9 @@ const ScanPage: React.FC = () => {
 
     // ✅ Predict
     const prediction = await model.predict(img);
+    if (!prediction.length) throw new Error("No predictions returned");
     prediction.sort((a: any, b: any) => b.probability - a.probability);
     const top = prediction[0];
-
     // ✅ Construct result
     const result = {
       material: top.className,
