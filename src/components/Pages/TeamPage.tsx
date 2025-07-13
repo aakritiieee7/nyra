@@ -42,7 +42,7 @@ const TeamPage: React.FC = () => {
       id: 4,
       name: 'Ishika Manchanda',
       role: 'Visual Packaging Classifier',
-      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      image:'https://media.licdn.com/dms/image/v2/D4E03AQHLrV-H2HPjLQ/profile-displayphoto-crop_800_800/B4EZgFwIiMGwAM-/0/1752443163169?e=1758153600&v=beta&t=9qF9PcVy-Z4CupAiiiIdtNywwx6nT2wq9Qlgw_Rvv5k'
       bio: 'User experience designer focused on making packaging sustainability tools accessible to everyone.',
       social: {
         linkedin: '#',
