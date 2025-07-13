@@ -6,9 +6,9 @@ const TeamPage: React.FC = () => {
   const teamMembers = [
     {
       id: 1,
-      name: 'Dr. Sarah Chen',
-      role: 'Lead AI Researcher',
-      image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      name: 'Aradhana Dash',
+      role: 'EcoGPT Integration Lead',
+      image: 'https://media.licdn.com/dms/image/v2/D5603AQETQNU_VAmDQA/profile-displayphoto-crop_800_800/B56Zea6GbUHoAI-/0/1750650613141?e=1758153600&v=beta&t=SSOu6EVlxRVyKF0pa9gql_JEDMxeEPQF76trDnYe0GE',
       bio: 'Machine learning expert specializing in computer vision and packaging sustainability analysis.',
       social: {
         linkedin: '#',
@@ -18,9 +18,9 @@ const TeamPage: React.FC = () => {
     },
     {
       id: 2,
-      name: 'Marcus Johnson',
-      role: 'Sustainability Director',
-      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      name: 'Gungun Jain',
+      role: 'Sustainability Scoring Engineer',
+      image: 'https://media.licdn.com/dms/image/v2/D4E03AQExLfKcDpFs_w/profile-displayphoto-shrink_800_800/B4EZccXOvRH0Ac-/0/1748527544293?e=1758153600&v=beta&t=mcp-XuQjYckpkYZdBrqQTjgxsN4CJuEpI16wAPOcUvw',
       bio: 'Environmental scientist with 15+ years in packaging sustainability and circular economy.',
       social: {
         linkedin: '#',
@@ -29,9 +29,9 @@ const TeamPage: React.FC = () => {
     },
     {
       id: 3,
-      name: 'Alex Rivera',
-      role: 'Lead Developer',
-      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
+      name: 'Aakriti Rajhans',
+      role: 'Dashboard UI Engineer',
+      image: 'https://media.licdn.com/dms/image/v2/D4D03AQEtbD18FH-FTg/profile-displayphoto-shrink_800_800/B4DZOOPgTXHUAg-/0/1733258250237?e=1758153600&v=beta&t=JQQnRHj0l46sy3dQFLqnibAtiCq5d_20wkHo1b4M64w',
       bio: 'Full-stack developer passionate about creating technology for sustainable packaging solutions.',
       social: {
         github: '#',
@@ -40,8 +40,8 @@ const TeamPage: React.FC = () => {
     },
     {
       id: 4,
-      name: 'Emily Park',
-      role: 'UX Designer',
+      name: 'Ishika Manchanda',
+      role: 'Visual Packaging Classifier',
       image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=2',
       bio: 'User experience designer focused on making packaging sustainability tools accessible to everyone.',
       social: {
