@@ -130,6 +130,8 @@ const model = await tmImage.load(
     // ✅ Construct result
     const materialKey = top.className.toLowerCase();
 const extraInfo = staticMaterialData[materialKey];
+console.log("🔍 extraInfo:", extraInfo);
+
 
 const result = {
   material: top.className,
@@ -248,12 +250,16 @@ const result = {
               <LoadingSpinner />
             ) : scanResult ? (
               <ScoreCard
-                material={scanResult.material}
-                score={scanResult.score}
-                summary={scanResult.summary}
-                confidence={scanResult.confidence}
-                recommendations={scanResult.recommendations}
-              />
+  material={scanResult.material}
+  score={scanResult.score}
+  summary={scanResult.summary}
+  confidence={scanResult.confidence}
+  recommendations={scanResult.recommendations}
+  recyclability={scanResult.recyclability}
+  disposal={scanResult.disposal}
+  impact={scanResult.impact}
+/>
+
             ) : (
               <div className="text-center py-12">
                 <div className="w-16 h-16 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
