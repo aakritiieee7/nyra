@@ -87,8 +87,6 @@ const ScanPage: React.FC = () => {
 
   try {
     const modelURL = "https://teachablemachine.withgoogle.com/models/q1HkAcrkQ/";
-
-    // ✅ Load your Teachable Machine model once
     // @ts-ignore
     // ✅ CORRECT WAY:
 const model = await tmImage.load(
