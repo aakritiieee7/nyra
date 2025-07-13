@@ -8,7 +8,11 @@ interface ScoreCardProps {
   summary: string;
   confidence: number;
   recommendations: string[];
+  recyclability?: number;
+  disposal?: string;
+  impact?: string;
 }
+
 
 const ScoreCard: React.FC<ScoreCardProps> = ({
   material,
@@ -16,7 +20,11 @@ const ScoreCard: React.FC<ScoreCardProps> = ({
   summary,
   confidence,
   recommendations,
+  recyclability,
+  disposal,
+  impact
 }) => {
+
   const scoreColor = getScoreColor(score);
   const scoreLabel = getScoreLabel(score);
 
@@ -54,6 +62,18 @@ const ScoreCard: React.FC<ScoreCardProps> = ({
           ))}
         </ul>
       </div>
+      <div className="mt-6 space-y-2 text-sm text-gray-600">
+  {recyclability !== undefined && (
+    <p><strong>♻️ Recyclability:</strong> {Math.round(recyclability * 100)}%</p>
+  )}
+  {disposal && (
+    <p><strong>🗑️ Disposal:</strong> {disposal}</p>
+  )}
+  {impact && (
+    <p><strong>🌍 Impact:</strong> {impact}</p>
+  )}
+</div>
+
     </motion.div>
   );
 };

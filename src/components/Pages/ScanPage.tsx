@@ -7,38 +7,59 @@ import { api } from '../../utils/api';
 import { ScanResult } from '../../types';
 import * as tmImage from "@teachablemachine/image";
 
-const getScoreForMaterial = (material: string): string => {
-  const scores: Record<string, string> = {
-    Plastic: "D",
-    Paper: "B",
-    Cardboard: "B",
-    Metal: "A",
-    Glass: "A",
-  };
-  return scores[material] || "C";
+const staticMaterialData: Record<string, any> = {
+  plastic: {
+    eco_score: "C",
+    grade: "C",
+    layers: 1,
+    recyclability: 0.5,
+    note: "Widespread use but poor degradation.",
+    disposal: "Recycle if local facility accepts.",
+    impact: "500 kg of plastic avoided per 1000 users/year",
+    suggestion: "Try switching to paper or reusable alternatives."
+  },
+  paper: {
+    eco_score: "A",
+    grade: "A",
+    layers: 1,
+    recyclability: 0.85,
+    note: "Easily biodegradable and recyclable.",
+    disposal: "Dry waste bin or compost if clean.",
+    impact: "Excellent choice- minimal impact",
+    suggestion: "Keep using sustainable packaging!"
+  },
+  glass: {
+    eco_score: "B",
+    grade: "B",
+    layers: 1,
+    recyclability: 0.9,
+    note: "Highly recyclable but energy-intensive.",
+    disposal: "Recycle separately.",
+    impact: "Energy-intensive but reusable",
+    suggestion: "Reuse glass jars and bottles"
+  },
+  cardboard: {
+    eco_score: "A",
+    grade: "A",
+    layers: 1,
+    recyclability: 0.8,
+    note: "Biodegradable and compostable.",
+    disposal: "Compost or recycle clean cardboard.",
+    impact: "Minimal packaging footprint",
+    suggestion: "Use recycled cardboard variants"
+  },
+  metal: {
+    eco_score: "B",
+    grade: "B",
+    layers: 1,
+    recyclability: 0.8,
+    note: "Good recyclability, durable.",
+    disposal: "Recycle in dry waste.",
+    impact: "High mining impact- recycle always",
+    suggestion: "Choose aluminum over steel if possible"
+  }
 };
 
-const getSummary = (material: string): string => {
-  const summaries: Record<string, string> = {
-    Plastic: "Plastic has high impact and low recyclability.",
-    Paper: "Paper is recyclable and moderately sustainable.",
-    Cardboard: "Cardboard is eco-friendly and widely recycled.",
-    Metal: "Metal is durable and easily recycled.",
-    Glass: "Glass is reusable and recyclable.",
-  };
-  return summaries[material] || "Moderate environmental impact.";
-};
-
-const getRecommendations = (material: string): string[] => {
-  const recs: Record<string, string[]> = {
-    Plastic: ["Switch to cardboard or paper.", "Avoid multilayer plastics."],
-    Paper: ["Use recycled paper.", "Avoid coated paper."],
-    Cardboard: ["Flatten before recycling.", "Choose FSC-certified."],
-    Metal: ["Rinse before recycling.", "Avoid metal-plastic mixes."],
-    Glass: ["Reuse when possible.", "Recycle by color."],
-  };
-  return recs[material] || ["Consider eco-friendly alternatives."];
-};
 
 
 const ScanPage: React.FC = () => {
@@ -107,13 +128,19 @@ const model = await tmImage.load(
     prediction.sort((a: any, b: any) => b.probability - a.probability);
     const top = prediction[0];
     // ✅ Construct result
-    const result = {
-      material: top.className,
-      confidence: Math.round(top.probability * 100),
-      score: getScoreForMaterial(top.className),
-      summary: getSummary(top.className),
-      recommendations: getRecommendations(top.className),
-    };
+    const materialKey = top.className.toLowerCase();
+const extraInfo = staticMaterialData[materialKey];
+
+const result = {
+  material: top.className,
+  confidence: Math.round(top.probability * 100),
+  score: extraInfo?.eco_score || "C",
+  summary: extraInfo?.note || "No info available.",
+  recommendations: [extraInfo?.suggestion || "Try alternatives."],
+  recyclability: extraInfo?.recyclability,
+  disposal: extraInfo?.disposal,
+  impact: extraInfo?.impact,
+};
 
     // ✅ Update UI
     setScanResult(result);
