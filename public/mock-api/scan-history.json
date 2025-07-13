@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "date": "2025-01-15",
+    "material": "Plastic",
+    "score": "D",
+    "confidence": 94
+  },
+  {
+    "id": 2,
+    "date": "2025-01-14",
+    "material": "Cardboard",
+    "score": "B",
+    "confidence": 89
+  },
+  {
+    "id": 3,
+    "date": "2025-01-13",
+    "material": "Glass",
+    "score": "A",
+    "confidence": 96
+  },
+  {
+    "id": 4,
+    "date": "2025-01-12",
+    "material": "Paper",
+    "score": "B",
+    "confidence": 91
+  },
+  {
+    "id": 5,
+    "date": "2025-01-11",
+    "material": "Aluminum",
+    "score": "A",
+    "confidence": 98
+  }
+]

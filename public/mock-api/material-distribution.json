@@ -1,0 +1,7 @@
+{
+  "data": {
+    "labels": ["Plastic", "Paper", "Glass", "Metal", "Organic", "Other"],
+    "values": [45, 25, 12, 8, 7, 3],
+    "colors": ["#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4", "#6b7280"]
+  }
+}
