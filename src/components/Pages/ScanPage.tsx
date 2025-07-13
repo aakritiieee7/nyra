@@ -5,6 +5,39 @@ import ScoreCard from '../UI/ScoreCard';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import { api } from '../../utils/api';
 import { ScanResult } from '../../types';
+const getScoreForMaterial = (material: string): string => {
+  const scores: Record<string, string> = {
+    Plastic: "D",
+    Paper: "B",
+    Cardboard: "B",
+    Metal: "A",
+    Glass: "A",
+  };
+  return scores[material] || "C";
+};
+
+const getSummary = (material: string): string => {
+  const summaries: Record<string, string> = {
+    Plastic: "Plastic has high impact and low recyclability.",
+    Paper: "Paper is recyclable and moderately sustainable.",
+    Cardboard: "Cardboard is eco-friendly and widely recycled.",
+    Metal: "Metal is durable and easily recycled.",
+    Glass: "Glass is reusable and recyclable.",
+  };
+  return summaries[material] || "Moderate environmental impact.";
+};
+
+const getRecommendations = (material: string): string[] => {
+  const recs: Record<string, string[]> = {
+    Plastic: ["Switch to cardboard or paper.", "Avoid multilayer plastics."],
+    Paper: ["Use recycled paper.", "Avoid coated paper."],
+    Cardboard: ["Flatten before recycling.", "Choose FSC-certified."],
+    Metal: ["Rinse before recycling.", "Avoid metal-plastic mixes."],
+    Glass: ["Reuse when possible.", "Recycle by color."],
+  };
+  return recs[material] || ["Consider eco-friendly alternatives."];
+};
+
 
 const ScanPage: React.FC = () => {
   const [dragActive, setDragActive] = useState(false);
@@ -46,19 +79,46 @@ const ScanPage: React.FC = () => {
     }
   };
 
-  const handleAnalyze = async () => {
-    if (!uploadedFile) return;
+ const handleAnalyze = async () => {
+  if (!uploadedFile) return;
+  setIsAnalyzing(true);  
 
-    setIsAnalyzing(true);
-    try {
-      const result = await api.uploadImage(uploadedFile);
-      setScanResult(result);
-    } catch (error) {
-      console.error('Analysis failed:', error);
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
+  try {
+    const modelURL = "https://teachablemachine.withgoogle.com/models/q1HkAcrkQ/"; // Replace this
+
+    // @ts-ignore
+    const model = await window.tmImage.load(
+      modelURL + "model.json",
+      modelURL + "metadata.json"
+    );
+
+    const img = new Image();
+    img.src = URL.createObjectURL(uploadedFile);
+    await img.decode();
+
+    // @ts-ignore
+const model = await window.tmImage.load(modelURL + "model.json", modelURL + "metadata.json");
+
+    const prediction = await model.predict(img);
+    prediction.sort((a: any, b: any) => b.probability - a.probability);
+    const top = prediction[0];
+
+    const result = {
+      material: top.className,
+      confidence: Math.round(top.probability * 100),
+      score: getScoreForMaterial(top.className),
+      summary: getSummary(top.className),
+      recommendations: getRecommendations(top.className),
+    };
+
+    setScanResult(result);
+  } catch (err) {
+    console.error("❌ Model analysis failed:", err);
+  } finally {
+    setIsAnalyzing(false);
+  }
+};
+
 
   const handleReset = () => {
     setUploadedFile(null);
