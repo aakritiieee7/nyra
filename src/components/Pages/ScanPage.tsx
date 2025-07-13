@@ -84,25 +84,26 @@ const ScanPage: React.FC = () => {
   setIsAnalyzing(true);  
 
   try {
-    const modelURL = "https://teachablemachine.withgoogle.com/models/q1HkAcrkQ/"; // Replace this
+    const modelURL = "https://teachablemachine.withgoogle.com/models/q1HkAcrkQ/";
 
+    // ✅ Load your Teachable Machine model once
     // @ts-ignore
     const model = await window.tmImage.load(
       modelURL + "model.json",
-      modelURL + "metadata.json"
+      modelURL + "metadata.json"  
     );
 
+    // ✅ Load image
     const img = new Image();
     img.src = URL.createObjectURL(uploadedFile);
     await img.decode();
 
-    // @ts-ignore
-const model = await window.tmImage.load(modelURL + "model.json", modelURL + "metadata.json");
-
+    // ✅ Predict
     const prediction = await model.predict(img);
     prediction.sort((a: any, b: any) => b.probability - a.probability);
     const top = prediction[0];
 
+    // ✅ Construct result
     const result = {
       material: top.className,
       confidence: Math.round(top.probability * 100),
@@ -111,6 +112,7 @@ const model = await window.tmImage.load(modelURL + "model.json", modelURL + "met
       recommendations: getRecommendations(top.className),
     };
 
+    // ✅ Update UI
     setScanResult(result);
   } catch (err) {
     console.error("❌ Model analysis failed:", err);
