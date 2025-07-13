@@ -4,9 +4,9 @@ export interface ScanResult {
   summary: string;
   confidence: number;
   recommendations: string[];
-  recyclability?: number;  // ✅ Add this line
-  disposal?: string;       // ✅ Add this line
-  impact?: string;         // ✅ Add this line
+  recyclability: number;  // ✅ Add this line
+  disposal: string;       // ✅ Add this line
+  impact: string;         // ✅ Add this line
 }
 
 export interface ScanHistory {
