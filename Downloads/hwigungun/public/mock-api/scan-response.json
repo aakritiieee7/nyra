@@ -1,0 +1,12 @@
+{
+  "material": "Plastic Bottle",
+  "score": "D",
+  "summary": "High environmental impact packaging. Consider switching to recycled plastic or glass alternatives for better sustainability.",
+  "confidence": 94,
+  "recommendations": [
+    "Switch to recycled plastic bottles (rPET)",
+    "Consider glass or aluminum alternatives",
+    "Reduce packaging thickness where possible",
+    "Add clear recycling instructions"
+  ]
+}
